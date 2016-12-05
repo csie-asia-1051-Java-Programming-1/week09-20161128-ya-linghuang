@@ -15,39 +15,82 @@ public class ex02_103051060 {
 		Scanner scn = new Scanner(System.in);
 		ArrayList <Student> std = new ArrayList<Student>();
 		while(true){
-		System.out.print("學號: ");
-		String Id = scn.nextLine();
-		System.out.print("姓名: ");
-		String Name = scn.nextLine();
-		System.out.print("國文成績: ");
-		int Ch = scn.nextInt();
-		System.out.print("英文成績: ");
-		int En = scn.nextInt();
-		System.out.print("數學成績: ");
-		int Ma = scn.nextInt();
-		int Avg = (Ch+En+Ma)/3;
-		std.add(new Student(Name,Id,Ch,En,Ma,Avg));
+		System.out.println("學號: ");
+		String Id = scn.next();
+		System.out.println("姓名: ");
+		String Name = scn.next();
+		std.add(new Student(Id,Name));
 		System.out.println("Next(Y/N): ");
 		char check = scn.next().charAt(0);
 		if(check=='Y'||check=='y'){
 			continue;
 		}else{break;}
 		}
+		for(int i = 0 ; i < std.size() ; i++){
+			System.out.println("第"+(i+1)+"位\n"+"國文成績: ");
+			int Ch = scn.nextInt();
+			System.out.println("英文成績: ");
+			int En = scn.nextInt();
+			System.out.println("數學成績: ");
+			int Ma = scn.nextInt();
+			std.get(i).addgrades(Ch);
+			std.get(i).addgrades(En);
+			std.get(i).addgrades(Ma);
+		}
+		Student space;												//交換
+		for(int i = 0 ; i <std.size(); i++){
+			for(int j = 0 ; j < std.size(); j++){
+				if(std.get(j).Avg()<std.get(i).Avg()){
+					space = std.get(i); 								//暫存 i 的東西
+					std.set(i, std.get(j));							//i 這格變成 j		(index,elements)
+					std.set(j, space);									//j 這格變成 i
+				}
+			}
+		}
+		for(int i = 0 ; i < std.size(); i++){
+			System.out.print(std.get(i).getid()+"\t"+std.get(i).getname()+"\t");std.get(i).getallscore();
+			System.out.println(+std.get(i).Avg());
+		}
+		}
 	}
 
-}
+
 class Student{
 	private String id,name;
-	private int ch,en,ma,avg;
-	public Student (String id1,String name1,int ch1,int en1,int ma1,int avg1){
+	private ArrayList <Grades> grd = new ArrayList <Grades>();
+	public Student (String id1, String name1){
 		id=id1;
 		name=name1;
-		ch=ch1;
-		en=en1;
-		ma=ma1;
-		
 	}
-	public void Info(){
-		
+	public String getid(){
+		return id;
+	}
+	public String getname(){
+		return name;
+	}
+	public void getallscore(){
+		for(int i = 0 ; i < grd.size(); i++){
+			System.out.print(grd.get(i).getscore()+"\t");
+		}
+	}
+	public void addgrades(int score){	
+		grd.add(new Grades(score));
+	}
+	public float Avg(){
+		float total = 0;
+		for(int i = 0 ; i<grd.size(); i++){
+			total=total+grd.get(i).getscore();
+		}
+		total=total/grd.size();
+		return total;
+	}
+}
+class Grades{
+	private int Score;
+	public Grades(int Score1){
+		Score=Score1;
+	}
+	public int getscore(){
+		return Score;
 	}
 }
