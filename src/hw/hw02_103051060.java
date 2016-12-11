@@ -6,11 +6,28 @@ package hw;
  * Date: 2016/11/28
  * Author: 103051060 黃雅鈴
  */
+import java.util.Scanner;
 public class hw02_103051060 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		Scanner scn = new Scanner(System.in);
+		int x = scn.nextInt();
+		int count=1;
+		int i = 0;
+		while(count<=x){
+			count=count+i;
+			System.out.print(count+" ");
+			i++;
+		}
+		System.out.println();
+		i=0;
+		while(i<=x){
+			for(int j=0 ; j<i ; j++){
+				System.out.print(i+" ");
+			}
+			i++;
+		}
 	}
 
 }
